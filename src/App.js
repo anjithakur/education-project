@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Array from "./project/array.json";
+
+function createMarkup(html) {
+  return { __html: html };
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [value, setValue] = useState(Array);
+  let html = "";
+  for (var key in value) {
+    if (key !== "head") {
+      const context = value[key][0];
+      html += `<img src=${context.image}>${context.headline}${context.text}`;
+    }
+  }
+  return <div dangerouslySetInnerHTML={createMarkup(html)} />;
 }
 
 export default App;
